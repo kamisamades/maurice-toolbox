@@ -12,6 +12,9 @@ from pathlib import Path
 
 class CleanUselessFiles:
     """Classe pour l'outil de nettoyage des fichiers inutiles"""
+
+    VERSION = "1.0.0"
+    RELEASE_DATE = "2026-09-04"
     
     # Liste des motifs de fichiers à supprimer
     USELESS_PATTERNS = [
@@ -60,7 +63,7 @@ class CleanUselessFiles:
         self._create_widgets()
         
     def _create_widgets(self):
-        """Cré¬¬ation des widgets de l'interface"""
+        """Création des widgets de l'interface"""
         # Frame principale
         main_frame = tk.Frame(self.root, bg="#f0f0f0")
         main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
@@ -68,7 +71,7 @@ class CleanUselessFiles:
         # Titre
         title_label = tk.Label(
             main_frame,
-            text="Clean Useless Files",
+            text="Nettoyage des fichiers inutiles ("+self.VERSION+" - "+self.RELEASE_DATE+")",
             font=("Arial", 18, "bold"),
             bg="#f0f0f0"
         )
@@ -77,7 +80,7 @@ class CleanUselessFiles:
         # Description
         desc_label = tk.Label(
             main_frame,
-            text="Sé¬¬lectionnez un dossier pour supprimer les fichiers temporaires et inutiles",
+            text="Sélectionnez un dossier pour supprimer les fichiers temporaires et inutile (Analyse récursive)",
             font=("Arial", 10),
             bg="#f0f0f0",
             fg="#666",
@@ -103,6 +106,7 @@ class CleanUselessFiles:
             folder_frame,
             textvariable=self.selected_folder,
             font=("Arial", 10),
+            fg="#000000",
             width=50
         )
         folder_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
@@ -113,7 +117,7 @@ class CleanUselessFiles:
             text="Parcourir",
             command=self._browse_folder,
             bg="#2196F3",
-            fg="white",
+            fg="#000000",
             font=("Arial", 9, "bold"),
             relief=tk.RAISED,
             cursor="hand2"
@@ -127,7 +131,7 @@ class CleanUselessFiles:
         # Titre de la liste
         list_title = tk.Label(
             list_frame,
-            text="Fichiers détecté¬©s (pré¬©visualisation):",
+            text="Fichiers détectés (prévisualisation):",
             font=("Arial", 10, "bold"),
             bg="#f0f0f0"
         )
@@ -162,7 +166,7 @@ class CleanUselessFiles:
             text="Analyser le dossier",
             command=self._analyze_folder,
             bg="#4CAF50",
-            fg="white",
+            fg="#000000",
             font=("Arial", 10, "bold"),
             relief=tk.RAISED,
             cursor="hand2",
@@ -176,7 +180,7 @@ class CleanUselessFiles:
             text="Supprimer les fichiers",
             command=self._delete_files,
             bg="#f44336",
-            fg="white",
+            fg="#000000",
             font=("Arial", 10, "bold"),
             relief=tk.RAISED,
             cursor="hand2",
@@ -192,7 +196,7 @@ class CleanUselessFiles:
             text="Fermer",
             command=self._close_window,
             bg="#9e9e9e",
-            fg="white",
+            fg="#000000",
             font=("Arial", 10, "bold"),
             relief=tk.RAISED,
             cursor="hand2",
@@ -207,7 +211,7 @@ class CleanUselessFiles:
         # Label de statut
         self.status_label = tk.Label(
             status_frame,
-            text="Prê¬¬t - Sé­lectionnez un dossier et cliquez sur Analyser",
+            text="Prêt - Sé­lectionnez un dossier et cliquez sur Analyser",
             font=("Arial", 9),
             bg="#f0f0f0",
             fg="#666",
@@ -216,15 +220,15 @@ class CleanUselessFiles:
         self.status_label.pack(fill=tk.X)
         
     def _browse_folder(self):
-        """Ouvre une boî¬¥te de dialogue pour sé­lectionner un dossier"""
+        """Ouvre une boîte de dialogue pour sé­lectionner un dossier"""
         folder = filedialog.askdirectory(
-            title="Sé¬¬lectionnez un dossier à nettoyer",
+            title="Sélectionnez un dossier à nettoyer",
             mustexist=True
         )
         if folder:
             self.selected_folder.set(folder)
             self.status_label.config(
-                text=f"Dossier sé­lectionné¬©: {folder}"
+                text=f"Dossier sé­lectionné: {folder}"
             )
             
     def _analyze_folder(self):
@@ -275,7 +279,7 @@ class CleanUselessFiles:
         except PermissionError:
             messagebox.showerror(
                 "Erreur",
-                "Permission refusé¬©e. Impossible de lire certains dossiers."
+                "Permission refusée. Impossible de lire certains dossiers."
             )
             self.status_label.config(text="Erreur lors de l'analyse")
             return
@@ -284,17 +288,17 @@ class CleanUselessFiles:
         count = len(self.files_to_delete)
         if count > 0:
             self.status_label.config(
-                text=f"{count} fichier(s) inutile(s) détecté¬©(s)"
+                text=f"{count} fichier(s) inutile(s) détecté(s)"
             )
             self.delete_btn.config(state=tk.NORMAL)
         else:
             self.status_label.config(
-                text="Aucun fichier inutile détecté¬©"
+                text="Aucun fichier inutile détecté"
             )
             self.delete_btn.config(state=tk.DISABLED)
             
     def _is_useless_file(self, filename):
-        """Vé¬¬rifie si un fichier est dans la liste des fichiers inutiles"""
+        """Vérifie si un fichier est dans la liste des fichiers inutiles"""
         filename_lower = filename.lower()
         
         # Vérification des motifs
@@ -321,12 +325,12 @@ class CleanUselessFiles:
         return False
     
     def _is_useless_directory(self, dirname):
-        """Vé¬¬rifie si un dossier est dans la liste des dossiers inutiles"""
+        """Vérifie si un dossier est dans la liste des dossiers inutiles"""
         useless_dirs = ["__MACOSX", ".Trashes", ".Spotlight-V100", ".fseventsd"]
         return dirname in useless_dirs
     
     def _delete_files(self):
-        """Supprime les fichiers détecté¬©s avec confirmation"""
+        """Supprime les fichiers détectés avec confirmation"""
         if not self.files_to_delete:
             messagebox.showinfo(
                 "Information",
@@ -369,13 +373,13 @@ class CleanUselessFiles:
         # Résultat
         result_msg = (
             f"Nettoyage terminé !\n\n"
-            f"Fichiers supprimé¬©s: {self.deleted_count}\n"
-            f"Fichiers ignoré¬©s: {self.skipped_count}"
+            f"Fichiers supprimés: {self.deleted_count}\n"
+            f"Fichiers ignorés: {self.skipped_count}"
         )
         
         messagebox.showinfo("Nettoyage terminé", result_msg)
         self.status_label.config(
-            text=f"Nettoyage terminé - {self.deleted_count} fichier(s) supprimé¬©(s)"
+            text=f"Nettoyage terminé - {self.deleted_count} fichier(s) supprimé(s)"
         )
         
         # Vider la liste

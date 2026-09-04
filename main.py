@@ -13,14 +13,15 @@ from modules.clean_useless_files import CleanUselessFiles
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox"""
     
-    VERSION = "1.0.0"
+    VERSION = "1.0.1"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
+    RELEASE_DATE = "2026-09-04"
     
     def __init__(self, root):
         """Initialisation de l'interface principale"""
         self.root = root
-        self.root.title("Maurice Toolbox")
+        self.root.title("Maurice Toolbox - Boite à outils ("+self.VERSION+" - "+self.RELEASE_DATE+")")
         self.root.geometry("600x400")
         self.root.minsize(400, 300)
         
@@ -34,7 +35,7 @@ class MauriceToolbox:
         self._create_tools_area()
         
     def _create_menu(self):
-        """Cré¬¬ation du menu principal"""
+        """Création du menu principal"""
         menubar = tk.Menu(self.root)
         self.root.config(menu=menubar)
         
@@ -61,13 +62,13 @@ class MauriceToolbox:
         # Titre
         title_label = tk.Label(
             tools_frame,
-            text="Outils disponibles",
+            text="Boite à Outils",
             font=("Arial", 16, "bold"),
             bg="#f0f0f0"
         )
         title_label.pack(pady=(0, 20))
         
-        # Frame pour les icô¬¥·nes (grille)
+        # Frame pour les icônes (grille)
         icons_frame = tk.Frame(tools_frame, bg="#f0f0f0")
         icons_frame.pack(fill=tk.BOTH, expand=True)
         
@@ -82,8 +83,8 @@ class MauriceToolbox:
         )
         
     def _create_tool_icon(self, parent, title, description, emoji, command, row, col):
-        """Cré¬¬ation d'une icô¬¥·ne d'outil carré¬©e"""
-        # Frame pour l'icô¬¥·ne
+        """Création d'une icône d'outil carrée"""
+        # Frame pour l'icône
         icon_frame = tk.Frame(parent, bg="white", relief=tk.RAISED, bd=2)
         icon_frame.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
         
@@ -95,7 +96,7 @@ class MauriceToolbox:
         inner_frame = tk.Frame(icon_frame, bg="white")
         inner_frame.pack(expand=True, fill=tk.BOTH, padx=15, pady=15)
         
-        # Emoji/icô¬¥·ne
+        # Emoji/icône
         emoji_label = tk.Label(
             inner_frame,
             text=emoji,
@@ -129,7 +130,7 @@ class MauriceToolbox:
             text="Lancer",
             command=command,
             bg="#4CAF50",
-            fg="white",
+            fg="#000000",
             font=("Arial", 9, "bold"),
             relief=tk.RAISED,
             cursor="hand2"
@@ -137,12 +138,12 @@ class MauriceToolbox:
         launch_btn.pack(pady=(10, 0))
         
     def _launch_clean_useless_files(self):
-        """Lance l'outil Clean Useless Files dans une fenêtre séparé¬©e"""
+        """Lance l'outil Clean Useless Files dans une fenêtre séparée"""
         tool_window = tk.Toplevel(self.root)
         CleanUselessFiles(tool_window)
         
     def _show_about(self):
-        """Affiche la boî¬¥te de dialogue À propos"""
+        """Affiche la boîte de dialogue À propos"""
         about_text = (
             f"Maurice Toolbox\n"
             f"Version: {self.VERSION}\n\n"
