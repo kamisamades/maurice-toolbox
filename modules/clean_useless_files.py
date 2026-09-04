@@ -6,10 +6,7 @@ import os
 import shutil
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
-
-BT_TEXT_COLOR = "#000000"  # Couleur du texte des boutons
-BT_BG_COLOR = "#FFFFFF"  # Couleur de fond des boutons
-DESC_TEXT_COLOR = "#666666"  # Couleur du texte des descriptions
+from config import *
 
 class CleanUselessFiles:
     """Outil de nettoyage des fichiers temporaires et inutiles."""
@@ -48,7 +45,7 @@ class CleanUselessFiles:
         self.root.title("Clean Useless Files ("+self.VERSION+" - "+self.RELEASE_DATE+")")
         self.root.geometry("600x500")
         self.root.minsize(500, 400)
-        self.root.configure(bg="#f0f0f0")
+        self.root.configure(bg=WINDOW_BG_COLOR)
 
         self.selected_folder = tk.StringVar()
         self.paths_to_delete = []
@@ -65,22 +62,22 @@ class CleanUselessFiles:
         self.root.geometry(f"{width}x{height}+{x}+{y}")
 
     def _create_widgets(self):
-        main_frame = tk.Frame(self.root, bg="#f0f0f0")
+        main_frame = tk.Frame(self.root, bg=WINDOW_BG_COLOR)
         main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
 
-        tk.Label(main_frame, text="Clean Useless Files", font=("Arial", 18, "bold"), bg="#f0f0f0").pack(pady=(0, 10))
+        tk.Label(main_frame, text="Clean Useless Files", font=("Arial", 18, "bold"), bg=WINDOW_BG_COLOR).pack(pady=(0, 10))
         tk.Label(
             main_frame,
             text="Sélectionnez un dossier pour supprimer les fichiers temporaires et inutiles.",
             font=("Arial", 10),
-            bg="#f0f0f0",
-            fg="#666",
+            bg=WINDOW_BG_COLOR,
+            fg=DESC_TEXT_COLOR,
             wraplength=500,
         ).pack(pady=(0, 20))
 
-        folder_frame = tk.Frame(main_frame, bg="#f0f0f0")
+        folder_frame = tk.Frame(main_frame, bg=WINDOW_BG_COLOR)
         folder_frame.pack(fill=tk.X, pady=10)
-        tk.Label(folder_frame, text="Dossier :", font=("Arial", 10, "bold"), bg="#f0f0f0").pack(side=tk.LEFT, padx=(0, 10))
+        tk.Label(folder_frame, text="Dossier :", font=("Arial", 10, "bold"), bg=WINDOW_BG_COLOR).pack(side=tk.LEFT, padx=(0, 10))
         tk.Entry(folder_frame, textvariable=self.selected_folder, font=("Arial", 10), width=50).pack(side=tk.LEFT, fill=tk.X, expand=True)
         tk.Button(
             folder_frame,
@@ -92,9 +89,9 @@ class CleanUselessFiles:
             cursor="hand2",
         ).pack(side=tk.LEFT, padx=(10, 0))
 
-        list_frame = tk.Frame(main_frame, bg="#f0f0f0")
+        list_frame = tk.Frame(main_frame, bg=WINDOW_BG_COLOR)
         list_frame.pack(fill=tk.BOTH, expand=True, pady=10)
-        tk.Label(list_frame, text="Fichiers détectés (prévisualisation) :", font=("Arial", 10, "bold"), bg="#f0f0f0").pack(anchor=tk.W, pady=(0, 5))
+        tk.Label(list_frame, text="Fichiers détectés (prévisualisation) :", font=("Arial", 10, "bold"), bg=WINDOW_BG_COLOR).pack(anchor=tk.W, pady=(0, 5))
 
         list_container = tk.Frame(list_frame, bg="white", relief=tk.SUNKEN, bd=1)
         list_container.pack(fill=tk.BOTH, expand=True)
@@ -104,7 +101,7 @@ class CleanUselessFiles:
         self.files_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.config(command=self.files_listbox.yview)
 
-        action_frame = tk.Frame(main_frame, bg="#f0f0f0")
+        action_frame = tk.Frame(main_frame, bg=WINDOW_BG_COLOR)
         action_frame.pack(fill=tk.X, pady=20)
         tk.Button(
             action_frame,
@@ -143,8 +140,8 @@ class CleanUselessFiles:
             main_frame,
             text="Prêt — sé­lectionnez un dossier puis cliquez sur Analyser le dossier.",
             font=("Arial", 9),
-            bg="#f0f0f0",
-            fg="#666",
+            bg=WINDOW_BG_COLOR,
+            fg=DESC_TEXT_COLOR,
             anchor=tk.W,
         )
         self.status_label.pack(fill=tk.X, pady=(10, 0))

@@ -10,15 +10,12 @@ from tkinter import messagebox, Menu
 from modules.clean_useless_files import CleanUselessFiles
 from pathlib import Path
 from PIL import Image, ImageTk
-
-BT_TEXT_COLOR = "#000000"  # Couleur du texte des boutons
-BT_BG_COLOR = "#FFFFFF"  # Couleur de fond des boutons
-DESC_TEXT_COLOR = "#666666"  # Couleur du texte des descriptions
+from config import *
 
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.0.3"
+    VERSION = "1.0.4"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
     RELEASE_DATE = "04/09/2026"
@@ -28,7 +25,7 @@ class MauriceToolbox:
         self.root.title("Maurice Toolbox - Boite à outils ("+self.VERSION+" - "+self.RELEASE_DATE+")")
         self.root.geometry("600x400")
         self.root.minsize(400, 300)
-        self.root.configure(bg="#f0f0f0")
+        self.root.configure(bg=WINDOW_BG_COLOR)
 
         self._create_menu()
         self._create_tools_area()
@@ -68,17 +65,17 @@ class MauriceToolbox:
         help_menu.add_command(label="À· propos", command=self._show_about)
 
     def _create_tools_area(self):
-        tools_frame = tk.Frame(self.root, bg="#f0f0f0")
+        tools_frame = tk.Frame(self.root, bg=WINDOW_BG_COLOR)
         tools_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
 
         tk.Label(
             tools_frame,
             text="Maurice Toolbox - Boite à outils",
             font=("Arial", 16, "bold"),
-            bg="#f0f0f0",
+            bg=WINDOW_BG_COLOR,
         ).pack(pady=(0, 20))
 
-        icons_frame = tk.Frame(tools_frame, bg="#f0f0f0")
+        icons_frame = tk.Frame(tools_frame, bg=WINDOW_BG_COLOR)
         icons_frame.pack(fill=tk.BOTH, expand=True)
 
         self._create_tool_icon(
@@ -92,7 +89,7 @@ class MauriceToolbox:
         )
 
     def _create_status_bar(self):
-        status_frame = tk.Frame(self.root, bg="#e0e0e0", relief=tk.SUNKEN, bd=1)
+        status_frame = tk.Frame(self.root, bg=WINDOW_BG_COLOR, relief=tk.SUNKEN, bd=1)
         status_frame.pack(side=tk.BOTTOM, fill=tk.X)
         text = (
             f"Maurice Toolbox — {self.AUTHOR} — "
@@ -102,8 +99,8 @@ class MauriceToolbox:
             status_frame,
             text=text,
             font=("Arial", 9),
-            bg="#e0e0e0",
-            fg="#333",
+            bg=WINDOW_BG_COLOR,
+            fg=STATUS_TEXT_COLOR,
             anchor=tk.W,
             padx=10,
             pady=3,
@@ -131,7 +128,7 @@ class MauriceToolbox:
     def _create_tool_icon(self, parent, title, description, emoji, command, row, col):
         """Création d'une icône d'outil carrée cliquable."""
         # Frame pour l'icône
-        icon_frame = tk.Frame(parent, bg="white", relief=tk.RAISED, bd=2)
+        icon_frame = tk.Frame(parent, bg=CARD_BG_COLOR, relief=tk.RAISED, bd=2)
         icon_frame.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
 
         # Configuration de l'expansion
@@ -139,7 +136,7 @@ class MauriceToolbox:
         parent.grid_rowconfigure(row, weight=1)
 
         # Frame interne pour centrer le contenu
-        inner_frame = tk.Frame(icon_frame, bg="white")
+        inner_frame = tk.Frame(icon_frame, bg=CARD_BG_COLOR)
         inner_frame.pack(expand=True, fill=tk.BOTH, padx=15, pady=15)
 
         # Emoji/icône
