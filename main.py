@@ -8,19 +8,21 @@ Web: lebrun.dev
 import tkinter as tk
 from tkinter import messagebox, Menu
 from modules.clean_useless_files import CleanUselessFiles
+from pathlib import Path
+from PIL import Image, ImageTk
 
 
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.0.0"
+    VERSION = "1.0.2"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
     RELEASE_DATE = "04/09/2026"
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Maurice Toolbox")
+        self.root.title("Maurice Toolbox - Boite à outils ("+self.VERSION+" - "+self.RELEASE_DATE+")")
         self.root.geometry("600x400")
         self.root.minsize(400, 300)
         self.root.configure(bg="#f0f0f0")
@@ -29,6 +31,13 @@ class MauriceToolbox:
         self._create_tools_area()
         self._create_status_bar()
         self.root.after(100, self._center_window)
+
+        icon_path = Path(__file__).parent / "assets" / "maurice-toolbox-logo-v2-sm.png"
+        if icon_path.exists():
+            icon_image = Image.open(icon_path)
+            self.app_icon = ImageTk.PhotoImage(icon_image)
+            self.root.iconphoto(False, self.app_icon)
+
 
     def _center_window(self):
         """Centre la fenêtre sur l'é±·cran."""
@@ -49,6 +58,7 @@ class MauriceToolbox:
 
         tools_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Outils", menu=tools_menu)
+        tools_menu.add_command(label="Nettoyer les fichiers inutiles", command=self._launch_clean_useless_files)
 
         help_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Aide", menu=help_menu)
@@ -60,7 +70,7 @@ class MauriceToolbox:
 
         tk.Label(
             tools_frame,
-            text="Outils disponibles",
+            text="Maurice Toolbox - Boite à outils",
             font=("Arial", 16, "bold"),
             bg="#f0f0f0",
         ).pack(pady=(0, 20))
@@ -98,10 +108,10 @@ class MauriceToolbox:
         ).pack(pady=2)
         tk.Button(
             inner_frame,
-            text="Lancer",
+            text="🛠️ Lancer",
             command=command,
             bg="#4CAF50",
-            fg="white",
+            fg="black",
             font=("Arial", 9, "bold"),
             relief=tk.RAISED,
             cursor="hand2",
@@ -111,7 +121,7 @@ class MauriceToolbox:
         status_frame = tk.Frame(self.root, bg="#e0e0e0", relief=tk.SUNKEN, bd=1)
         status_frame.pack(side=tk.BOTTOM, fill=tk.X)
         text = (
-            f"Maurice Toolbox — Auteur : {self.AUTHOR} — "
+            f"Maurice Toolbox — {self.AUTHOR} — "
             f"Version : {self.VERSION} — Release : {self.RELEASE_DATE}"
         )
         tk.Label(
@@ -123,7 +133,7 @@ class MauriceToolbox:
             anchor=tk.W,
             padx=10,
             pady=3,
-        ).pack(fill=tk.X)
+        ).pack(fill=tk.X,side=tk.RIGHT)
 
     def _launch_clean_useless_files(self):
         tool_window = tk.Toplevel(self.root)
@@ -136,7 +146,7 @@ class MauriceToolbox:
             f"Release : {self.RELEASE_DATE}\n\n"
             f"Auteur : {self.AUTHOR}\n"
             f"Web : {self.WEBSITE}\n\n"
-            f"Boite à outils Python avec interface Tkinter"
+            f"Boite à outils"
         )
         messagebox.showinfo("À· propos", about_text)
 

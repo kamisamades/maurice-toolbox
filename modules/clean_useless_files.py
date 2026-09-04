@@ -11,6 +11,10 @@ from tkinter import filedialog, messagebox, ttk
 class CleanUselessFiles:
     """Outil de nettoyage des fichiers temporaires et inutiles."""
 
+    VERSION = "1.0.0"
+    AUTHOR = "Maurice"
+    RELEASE_DATE = "04/09/2026"
+
     USELESS_FILE_PATTERNS = (
         "._*",
         ".DS_Store",
@@ -38,7 +42,7 @@ class CleanUselessFiles:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Clean Useless Files")
+        self.root.title("Clean Useless Files ("+self.VERSION+" - "+self.RELEASE_DATE+")")
         self.root.geometry("600x500")
         self.root.minsize(500, 400)
         self.root.configure(bg="#f0f0f0")
@@ -49,7 +53,7 @@ class CleanUselessFiles:
         self.root.after(100, self._center_window)
 
     def _center_window(self):
-        """Centre la fenêtre sur l'é±·cran."""
+        """Centre la fenêtre sur l'écran."""
         self.root.update_idletasks()
         width = self.root.winfo_width()
         height = self.root.winfo_height()
@@ -64,7 +68,7 @@ class CleanUselessFiles:
         tk.Label(main_frame, text="Clean Useless Files", font=("Arial", 18, "bold"), bg="#f0f0f0").pack(pady=(0, 10))
         tk.Label(
             main_frame,
-            text="Sé¬¬lectionnez un dossier pour supprimer les fichiers temporaires et inutiles.",
+            text="Sélectionnez un dossier pour supprimer les fichiers temporaires et inutiles.",
             font=("Arial", 10),
             bg="#f0f0f0",
             fg="#666",
@@ -80,14 +84,14 @@ class CleanUselessFiles:
             text="Parcourir",
             command=self._browse_folder,
             bg="#2196F3",
-            fg="white",
+            fg="black",
             font=("Arial", 9, "bold"),
             cursor="hand2",
         ).pack(side=tk.LEFT, padx=(10, 0))
 
         list_frame = tk.Frame(main_frame, bg="#f0f0f0")
         list_frame.pack(fill=tk.BOTH, expand=True, pady=10)
-        tk.Label(list_frame, text="Fichiers détecté¬©s (pré¬©visualisation) :", font=("Arial", 10, "bold"), bg="#f0f0f0").pack(anchor=tk.W, pady=(0, 5))
+        tk.Label(list_frame, text="Fichiers détectés (prévisualisation) :", font=("Arial", 10, "bold"), bg="#f0f0f0").pack(anchor=tk.W, pady=(0, 5))
 
         list_container = tk.Frame(list_frame, bg="white", relief=tk.SUNKEN, bd=1)
         list_container.pack(fill=tk.BOTH, expand=True)
@@ -101,20 +105,20 @@ class CleanUselessFiles:
         action_frame.pack(fill=tk.X, pady=20)
         tk.Button(
             action_frame,
-            text="Analyser le dossier",
+            text="🔍 Analyser le dossier",
             command=self._analyze_folder,
             bg="#4CAF50",
-            fg="white",
+            fg="black",
             font=("Arial", 10, "bold"),
             width=18,
             cursor="hand2",
         ).pack(side=tk.LEFT, padx=(0, 10))
         self.delete_btn = tk.Button(
             action_frame,
-            text="Supprimer les fichiers",
+            text="🗑️ Supprimer les fichiers",
             command=self._delete_files,
             bg="#f44336",
-            fg="white",
+            fg="black",
             font=("Arial", 10, "bold"),
             width=22,
             cursor="hand2",
@@ -123,10 +127,10 @@ class CleanUselessFiles:
         self.delete_btn.pack(side=tk.LEFT, padx=(0, 10))
         tk.Button(
             action_frame,
-            text="Fermer",
+            text="❌ Fermer",
             command=self.root.destroy,
             bg="#9e9e9e",
-            fg="white",
+            fg="black",
             font=("Arial", 10, "bold"),
             width=15,
             cursor="hand2",
@@ -134,7 +138,7 @@ class CleanUselessFiles:
 
         self.status_label = tk.Label(
             main_frame,
-            text="Prê¬¬t — sé­lectionnez un dossier puis cliquez sur Analyser le dossier.",
+            text="Prêt — sé­lectionnez un dossier puis cliquez sur Analyser le dossier.",
             font=("Arial", 9),
             bg="#f0f0f0",
             fg="#666",
@@ -143,10 +147,10 @@ class CleanUselessFiles:
         self.status_label.pack(fill=tk.X, pady=(10, 0))
 
     def _browse_folder(self):
-        folder = filedialog.askdirectory(title="Sé¬¬lectionnez un dossier à nettoyer", mustexist=True)
+        folder = filedialog.askdirectory(title="Sélectionnez un dossier à nettoyer", mustexist=True)
         if folder:
             self.selected_folder.set(folder)
-            self.status_label.config(text=f"Dossier sé­lectionné¬© : {folder}")
+            self.status_label.config(text=f"Dossier sé­lectionné : {folder}")
 
     def _analyze_folder(self):
         folder = self.selected_folder.get()
@@ -178,10 +182,10 @@ class CleanUselessFiles:
 
         count = len(self.paths_to_delete)
         if count:
-            self.status_label.config(text=f"{count} é­lé¬©ment(s) inutile(s) détecté¬©(s).")
+            self.status_label.config(text=f"{count} é­lément(s) inutile(s) détecté(s).")
             self.delete_btn.config(state=tk.NORMAL)
         else:
-            self.status_label.config(text="Aucun fichier ou dossier inutile détecté¬©.")
+            self.status_label.config(text="Aucun fichier ou dossier inutile détecté.")
             self.delete_btn.config(state=tk.DISABLED)
 
     def _is_useless_file(self, filename):
@@ -192,13 +196,13 @@ class CleanUselessFiles:
 
     def _delete_files(self):
         if not self.paths_to_delete:
-            messagebox.showinfo("Information", "Aucun é­lé¬©ment à supprimer.")
+            messagebox.showinfo("Information", "Aucun é­lément à supprimer.")
             return
 
         count = len(self.paths_to_delete)
         if not messagebox.askyesno(
             "Confirmation de suppression",
-            f"Voulez-vous vraiment supprimer {count} é­lé¬©ment(s) ?\n\nCette action est irré­versible.",
+            f"Voulez-vous vraiment supprimer {count} é­lément(s) ?\n\nCette action est irré­versible.",
             icon=messagebox.WARNING,
         ):
             return
@@ -215,8 +219,8 @@ class CleanUselessFiles:
             except OSError:
                 skipped += 1
 
-        messagebox.showinfo("Nettoyage terminé", f"É·lé¬©ments supprimé¬©s : {deleted}\nÉ·lé¬©ments ignoré¬©s : {skipped}")
-        self.status_label.config(text=f"Nettoyage terminé — {deleted} é­lé¬©ment(s) supprimé¬©(s), {skipped} ignoré¬©(s).")
+        messagebox.showinfo("Nettoyage terminé", f"Éléments supprimés : {deleted}\nÉléments ignorés : {skipped}")
+        self.status_label.config(text=f"Nettoyage terminé — {deleted} é­lément(s) supprimé(s), {skipped} ignoré(s).")
         self.files_listbox.delete(0, tk.END)
         self.paths_to_delete = []
         self.delete_btn.config(state=tk.DISABLED)
