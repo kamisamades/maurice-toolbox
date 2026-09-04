@@ -11,11 +11,14 @@ from modules.clean_useless_files import CleanUselessFiles
 from pathlib import Path
 from PIL import Image, ImageTk
 
+BT_TEXT_COLOR = "#000000"  # Couleur du texte des boutons
+BT_BG_COLOR = "#FFFFFF"  # Couleur de fond des boutons
+DESC_TEXT_COLOR = "#666666"  # Couleur du texte des descriptions
 
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.0.2"
+    VERSION = "1.0.3"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
     RELEASE_DATE = "04/09/2026"
@@ -88,35 +91,6 @@ class MauriceToolbox:
             0,
         )
 
-    def _create_tool_icon(self, parent, title, description, emoji, command, row, col):
-        icon_frame = tk.Frame(parent, bg="white", relief=tk.RAISED, bd=2)
-        icon_frame.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
-        parent.grid_columnconfigure(col, weight=1)
-        parent.grid_rowconfigure(row, weight=1)
-
-        inner_frame = tk.Frame(icon_frame, bg="white")
-        inner_frame.pack(expand=True, fill=tk.BOTH, padx=15, pady=15)
-
-        tk.Label(inner_frame, text=emoji, font=("Arial", 32), bg="white").pack(pady=(10, 5))
-        tk.Label(inner_frame, text=title, font=("Arial", 11, "bold"), bg="white").pack(pady=2)
-        tk.Label(
-            inner_frame,
-            text=description,
-            font=("Arial", 9),
-            bg="white",
-            fg="#666",
-        ).pack(pady=2)
-        tk.Button(
-            inner_frame,
-            text="🛠️ Lancer",
-            command=command,
-            bg="#4CAF50",
-            fg="black",
-            font=("Arial", 9, "bold"),
-            relief=tk.RAISED,
-            cursor="hand2",
-        ).pack(pady=(10, 0))
-
     def _create_status_bar(self):
         status_frame = tk.Frame(self.root, bg="#e0e0e0", relief=tk.SUNKEN, bd=1)
         status_frame.pack(side=tk.BOTTOM, fill=tk.X)
@@ -153,6 +127,71 @@ class MauriceToolbox:
     def _quit_app(self):
         if messagebox.askyesno("Quitter", "Voulez-vous vraiment quitter Maurice Toolbox ?"):
             self.root.destroy()
+
+    def _create_tool_icon(self, parent, title, description, emoji, command, row, col):
+        """Création d'une icône d'outil carrée cliquable."""
+        # Frame pour l'icône
+        icon_frame = tk.Frame(parent, bg="white", relief=tk.RAISED, bd=2)
+        icon_frame.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+
+        # Configuration de l'expansion
+        parent.grid_columnconfigure(col, weight=1)
+        parent.grid_rowconfigure(row, weight=1)
+
+        # Frame interne pour centrer le contenu
+        inner_frame = tk.Frame(icon_frame, bg="white")
+        inner_frame.pack(expand=True, fill=tk.BOTH, padx=15, pady=15)
+
+        # Emoji/icône
+        emoji_label = tk.Label(
+            inner_frame,
+            text=emoji,
+            font=("Arial", 32),
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
+            cursor="hand2"
+        )
+        emoji_label.pack(pady=(10, 5))
+
+        # Titre de l'outil
+        title_label = tk.Label(
+            inner_frame,
+            text=title,
+            font=("Arial", 11, "bold"),
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
+            cursor="hand2"
+        )
+        title_label.pack(pady=2)
+
+        # Description
+        desc_label = tk.Label(
+            inner_frame,
+            text=description,
+            font=("Arial", 9),
+            bg=BT_BG_COLOR,
+            fg=DESC_TEXT_COLOR,
+            cursor="hand2"
+        )
+        desc_label.pack(pady=2)
+
+        # Bouton pour lancer l'outil
+        launch_btn = tk.Button(
+            inner_frame,
+            text="Lancer",
+            command=command,
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
+            font=("Arial", 9, "bold"),
+            relief=tk.RAISED,
+            cursor="hand2"
+        )
+        #launch_btn.pack(pady=(10, 0))
+
+        # Rendre toute la zone cliquable
+        for widget in (icon_frame, inner_frame, emoji_label, title_label, desc_label, launch_btn):
+            widget.bind("<Button-1>", lambda event: command())
+            widget.config(cursor="hand2")
 
 
 def main():

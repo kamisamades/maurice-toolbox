@@ -7,11 +7,14 @@ import shutil
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
+BT_TEXT_COLOR = "#000000"  # Couleur du texte des boutons
+BT_BG_COLOR = "#FFFFFF"  # Couleur de fond des boutons
+DESC_TEXT_COLOR = "#666666"  # Couleur du texte des descriptions
 
 class CleanUselessFiles:
     """Outil de nettoyage des fichiers temporaires et inutiles."""
 
-    VERSION = "1.0.0"
+    VERSION = "1.0.1"
     AUTHOR = "Maurice"
     RELEASE_DATE = "04/09/2026"
 
@@ -83,8 +86,8 @@ class CleanUselessFiles:
             folder_frame,
             text="Parcourir",
             command=self._browse_folder,
-            bg="#2196F3",
-            fg="black",
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
             font=("Arial", 9, "bold"),
             cursor="hand2",
         ).pack(side=tk.LEFT, padx=(10, 0))
@@ -107,8 +110,8 @@ class CleanUselessFiles:
             action_frame,
             text="🔍 Analyser le dossier",
             command=self._analyze_folder,
-            bg="#4CAF50",
-            fg="black",
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
             font=("Arial", 10, "bold"),
             width=18,
             cursor="hand2",
@@ -117,8 +120,8 @@ class CleanUselessFiles:
             action_frame,
             text="🗑️ Supprimer les fichiers",
             command=self._delete_files,
-            bg="#f44336",
-            fg="black",
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
             font=("Arial", 10, "bold"),
             width=22,
             cursor="hand2",
@@ -129,8 +132,8 @@ class CleanUselessFiles:
             action_frame,
             text="❌ Fermer",
             command=self.root.destroy,
-            bg="#9e9e9e",
-            fg="black",
+            bg=BT_BG_COLOR,
+            fg=BT_TEXT_COLOR,
             font=("Arial", 10, "bold"),
             width=15,
             cursor="hand2",
