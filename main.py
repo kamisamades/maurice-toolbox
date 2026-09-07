@@ -8,6 +8,7 @@ Web: lebrun.dev
 import tkinter as tk
 from tkinter import messagebox, Menu
 from modules.clean_useless_files import CleanUselessFiles
+from modules.zip_assemble import ZipAssemble
 from modules.zip_dir import ZipDir
 from pathlib import Path
 from PIL import Image, ImageTk
@@ -16,10 +17,10 @@ from config import *
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.1.0"
+    VERSION = "1.2.0"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
-    RELEASE_DATE = "04/09/2026"
+    RELEASE_DATE = "07/09/2026"
 
     def __init__(self, root):
         self.root = root
@@ -61,6 +62,7 @@ class MauriceToolbox:
         menubar.add_cascade(label="Outils", menu=tools_menu)
         tools_menu.add_command(label="Nettoyer les fichiers inutiles", command=self._launch_clean_useless_files)
         tools_menu.add_command(label="Compresser un dossier", command=self._launch_zip_dir)
+        tools_menu.add_command(label="Assembler un ZIP", command=self._launch_zip_assemble)
 
         help_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Aide", menu=help_menu)
@@ -98,6 +100,15 @@ class MauriceToolbox:
             0,
             1,
         )
+        self._create_tool_icon(
+            icons_frame,
+            "Zip Assemble",
+            "Réassemble les parties d'un ZIP",
+            "🧩",
+            self._launch_zip_assemble,
+            0,
+            2,
+        )
 
     def _create_status_bar(self):
         status_frame = tk.Frame(self.root, bg=WINDOW_BG_COLOR, relief=tk.SUNKEN, bd=1)
@@ -124,6 +135,10 @@ class MauriceToolbox:
     def _launch_zip_dir(self):
         tool_window = tk.Toplevel(self.root)
         ZipDir(tool_window)
+
+    def _launch_zip_assemble(self):
+        tool_window = tk.Toplevel(self.root)
+        ZipAssemble(tool_window)
 
     def _show_about(self):
         about_text = (

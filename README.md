@@ -108,6 +108,10 @@ Pour toute question ou suggestion, vous pouvez contacter l'auteur via son site w
 
 ## 🗒️ Changelog
 
+Version 1.2.0 (07/09/2026) :
+- Ajout du module "zip_assemble.py" permettant de ré-assembler un zip scindé avec "zip_dir.py"
+- Possibilité de sélectionner le fichier de sortie (par défaut <zipname>-assemble.zip, dans le répertoire des fichiers à assembler)
+
 Version 1.1.0 (07/09/2026) :
 - Ajout du Changelog
 - Ajout du module "zip_dir.py" permettant de créer un fichier zip à partir d'un répertoire
