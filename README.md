@@ -30,6 +30,17 @@ Permet de nettoyer un dossier en supprimant les fichiers temporaires et inutiles
 3. Visualisez la liste des fichiers détectés
 4. Confirmez la suppression
 
+#### 📦 Zip Dir
+Permet de compresser un dossier dans un fichier zip
+- Possibilité d'analyser au préalable le dossier choisi
+- Possibilité d'inclure et/ou exclure des extensions de fichier en particuliers
+
+**Fonctionnement :**
+1. Sélectionner un dossier à compresser
+2. Sélectionner le fichier zip de sortie (par défaut, <dir>-archive.zip dans le dossier parent de <dir>)
+3. Saisir (ou laisser vide) les extensions de fichier à inclure et/ou exclure dans le fichier zip
+4. Cliquer sur "Créer un zip"
+
 ## 🏗️ Architecture du Projet
 
 ```
@@ -82,7 +93,7 @@ class MonOutil:
 
 ## 📝 Informations
 
-- **Version** : 1.0.0
+- **Version** : 1.1.0
 - **Auteur** : Maurice
 - **Web** : [lebrun.dev](https://lebrun.dev)
 - **Licence** : MIT
@@ -94,3 +105,11 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou un
 ## 📞 Contact
 
 Pour toute question ou suggestion, vous pouvez contacter l'auteur via son site web.
+
+## 🗒️ Changelog
+
+Version 1.1.0 (07/09/2026) :
+- Ajout du Changelog
+- Ajout du module "zip_dir.py" permettant de créer un fichier zip à partir d'un répertoire
+- Possibilité d'inclure et/ou exclure des extensions de fichier en particuliers
+- Possibilité d'analyse du dossier (taille du répertoire + nombre de fichier)

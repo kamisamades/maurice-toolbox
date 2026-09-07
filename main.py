@@ -8,6 +8,7 @@ Web: lebrun.dev
 import tkinter as tk
 from tkinter import messagebox, Menu
 from modules.clean_useless_files import CleanUselessFiles
+from modules.zip_dir import ZipDir
 from pathlib import Path
 from PIL import Image, ImageTk
 from config import *
@@ -15,7 +16,7 @@ from config import *
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.0.4"
+    VERSION = "1.1.0"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
     RELEASE_DATE = "04/09/2026"
@@ -59,6 +60,7 @@ class MauriceToolbox:
         tools_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Outils", menu=tools_menu)
         tools_menu.add_command(label="Nettoyer les fichiers inutiles", command=self._launch_clean_useless_files)
+        tools_menu.add_command(label="Compresser un dossier", command=self._launch_zip_dir)
 
         help_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Aide", menu=help_menu)
@@ -87,6 +89,15 @@ class MauriceToolbox:
             0,
             0,
         )
+        self._create_tool_icon(
+            icons_frame,
+            "Zip Directory",
+            "Crée une archive ZIP filtrée",
+            "📦",
+            self._launch_zip_dir,
+            0,
+            1,
+        )
 
     def _create_status_bar(self):
         status_frame = tk.Frame(self.root, bg=WINDOW_BG_COLOR, relief=tk.SUNKEN, bd=1)
@@ -109,6 +120,10 @@ class MauriceToolbox:
     def _launch_clean_useless_files(self):
         tool_window = tk.Toplevel(self.root)
         CleanUselessFiles(tool_window)
+
+    def _launch_zip_dir(self):
+        tool_window = tk.Toplevel(self.root)
+        ZipDir(tool_window)
 
     def _show_about(self):
         about_text = (
