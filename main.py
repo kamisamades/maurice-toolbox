@@ -8,6 +8,7 @@ Web: lebrun.dev
 import tkinter as tk
 from tkinter import messagebox, Menu
 from modules.clean_useless_files import CleanUselessFiles
+from modules.image_resize import ImageResize
 from modules.pattern_rename import PatternRename
 from modules.zip_assemble import ZipAssemble
 from modules.zip_dir import ZipDir
@@ -18,7 +19,7 @@ from config import *
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.3.0"
+    VERSION = "1.4.0"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
     RELEASE_DATE = "07/09/2026"
@@ -26,7 +27,7 @@ class MauriceToolbox:
     def __init__(self, root):
         self.root = root
         self.root.title("Maurice Toolbox - Boite à outils ("+self.VERSION+" - "+self.RELEASE_DATE+")")
-        self.root.geometry("600x400")
+        self.root.geometry("800x600")
         self.root.minsize(400, 300)
         self.root.configure(bg=WINDOW_BG_COLOR)
 
@@ -62,6 +63,7 @@ class MauriceToolbox:
         tools_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Outils", menu=tools_menu)
         tools_menu.add_command(label="Nettoyer les fichiers inutiles", command=self._launch_clean_useless_files)
+        tools_menu.add_command(label="Redimensionner des images", command=self._launch_image_resize)
         tools_menu.add_command(label="Renommer par pattern", command=self._launch_pattern_rename)
         tools_menu.add_command(label="Compresser un dossier", command=self._launch_zip_dir)
         tools_menu.add_command(label="Assembler un ZIP", command=self._launch_zip_assemble)
@@ -95,12 +97,21 @@ class MauriceToolbox:
         )
         self._create_tool_icon(
             icons_frame,
+            "Image Resize",
+            "Redimensionne des images en masse",
+            "🖼️",
+            self._launch_image_resize,
+            0,
+            1,
+        )
+        self._create_tool_icon(
+            icons_frame,
             "Pattern Rename",
             "Renomme les fichiers séquentiellement",
             "✏️",
             self._launch_pattern_rename,
             0,
-            1,
+            2,
         )
         self._create_tool_icon(
             icons_frame,
@@ -142,6 +153,10 @@ class MauriceToolbox:
     def _launch_clean_useless_files(self):
         tool_window = tk.Toplevel(self.root)
         CleanUselessFiles(tool_window)
+
+    def _launch_image_resize(self):
+        tool_window = tk.Toplevel(self.root)
+        ImageResize(tool_window)
 
     def _launch_pattern_rename(self):
         tool_window = tk.Toplevel(self.root)

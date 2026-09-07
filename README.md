@@ -58,6 +58,16 @@ Permet de renommage en série les fichiers d'un dossier sélectionner
 3. Cliquer sur "Analyser" pour visualiser les fichiers qui seront traités
 4. Cliquer sur "Renommer les fichier" pour appliquer les modifications de renommage sur tous les fichiers concernés
 
+#### 🖼️ Image Resize
+Permet de redimensionner en masse des images d'un même dossier
+
+**Fonctionnement :**
+1. Sélectionner le dossier d'entrée, où sont les images à traiter
+2. Sélectionner le dossier de sortie, où seront enregistrée les images modifiées
+3. Sélectionner les formats d'images à traiter en cochant les cases correspondantes
+4. Choisir la largeur max, la hauteur max ainsi que le format de sortie. Si la hauteur et la largeur sont spécifiées il est possible de choisir de conserver ou non les proportions de l'image d'origine
+5. Cliquer sur "Analyser" pour consulter la liste des images qui seront traitées
+6. Cliquer sur "Redimensionner" pour exécuter le redimensionnement en masse
 
 ## 🏗️ Architecture du Projet
 
@@ -125,6 +135,9 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou un
 Pour toute question ou suggestion, vous pouvez contacter l'auteur via son site web.
 
 ## 🗒️ Changelog
+
+Version 1.4.0 (07/09/2026) :
+- Ajout du module "image_resize.py" permettant de redimensionner en masse des images d'un même dossier
 
 Version 1.3.0 (07/09/2026) :
 - Ajout du module "pattern_rename.py" permettant de renommer les fichiers d'un même dossier à partir d'un pattern défini et d'un indice sur 5 chiffres.
