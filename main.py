@@ -8,6 +8,7 @@ Web: lebrun.dev
 import tkinter as tk
 from tkinter import messagebox, Menu
 from modules.clean_useless_files import CleanUselessFiles
+from modules.pattern_rename import PatternRename
 from modules.zip_assemble import ZipAssemble
 from modules.zip_dir import ZipDir
 from pathlib import Path
@@ -17,7 +18,7 @@ from config import *
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.2.0"
+    VERSION = "1.3.0"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
     RELEASE_DATE = "07/09/2026"
@@ -61,6 +62,7 @@ class MauriceToolbox:
         tools_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Outils", menu=tools_menu)
         tools_menu.add_command(label="Nettoyer les fichiers inutiles", command=self._launch_clean_useless_files)
+        tools_menu.add_command(label="Renommer par pattern", command=self._launch_pattern_rename)
         tools_menu.add_command(label="Compresser un dossier", command=self._launch_zip_dir)
         tools_menu.add_command(label="Assembler un ZIP", command=self._launch_zip_assemble)
 
@@ -93,12 +95,21 @@ class MauriceToolbox:
         )
         self._create_tool_icon(
             icons_frame,
-            "Zip Directory",
-            "Crée une archive ZIP filtrée",
-            "📦",
-            self._launch_zip_dir,
+            "Pattern Rename",
+            "Renomme les fichiers séquentiellement",
+            "✏️",
+            self._launch_pattern_rename,
             0,
             1,
+        )
+        self._create_tool_icon(
+            icons_frame,
+            "Zip Directory",
+            "Crée une archive ZIP d'un dossier",
+            "📦",
+            self._launch_zip_dir,
+            1,
+            0,
         )
         self._create_tool_icon(
             icons_frame,
@@ -106,8 +117,8 @@ class MauriceToolbox:
             "Réassemble les parties d'un ZIP",
             "🧩",
             self._launch_zip_assemble,
-            0,
-            2,
+            1,
+            1,
         )
 
     def _create_status_bar(self):
@@ -132,6 +143,10 @@ class MauriceToolbox:
         tool_window = tk.Toplevel(self.root)
         CleanUselessFiles(tool_window)
 
+    def _launch_pattern_rename(self):
+        tool_window = tk.Toplevel(self.root)
+        PatternRename(tool_window)
+
     def _launch_zip_dir(self):
         tool_window = tk.Toplevel(self.root)
         ZipDir(tool_window)
@@ -149,7 +164,7 @@ class MauriceToolbox:
             f"Web : {self.WEBSITE}\n\n"
             f"Boite à outils"
         )
-        messagebox.showinfo("À· propos", about_text)
+        messagebox.showinfo("À propos", about_text)
 
     def _quit_app(self):
         if messagebox.askyesno("Quitter", "Voulez-vous vraiment quitter Maurice Toolbox ?"):

@@ -41,6 +41,24 @@ Permet de compresser un dossier dans un fichier zip
 3. Saisir (ou laisser vide) les extensions de fichier à inclure et/ou exclure dans le fichier zip
 4. Cliquer sur "Créer un zip"
 
+#### 🧩 Zip Assemble
+Permet de réassembler un fichier depuis plusieurs parties
+
+**Fonctionnement :**
+1. Sélectionner les différentes parties du Zip scindé
+2. Choisir le fichier zip de sortie (par défaut, <zipname>-assemble.zip dans le dossier de <zipname>)
+3. Cliquer sur "Assembler le Zip"
+
+#### ✏️ Pattern rename
+Permet de renommage en série les fichiers d'un dossier sélectionner
+
+**Fonctionnement :**
+1. Sélectionner le dossier à traiter
+2. Choisir le pattern de renommage
+3. Cliquer sur "Analyser" pour visualiser les fichiers qui seront traités
+4. Cliquer sur "Renommer les fichier" pour appliquer les modifications de renommage sur tous les fichiers concernés
+
+
 ## 🏗️ Architecture du Projet
 
 ```
@@ -107,6 +125,9 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou un
 Pour toute question ou suggestion, vous pouvez contacter l'auteur via son site web.
 
 ## 🗒️ Changelog
+
+Version 1.3.0 (07/09/2026) :
+- Ajout du module "pattern_rename.py" permettant de renommer les fichiers d'un même dossier à partir d'un pattern défini et d'un indice sur 5 chiffres.
 
 Version 1.2.0 (07/09/2026) :
 - Ajout du module "zip_assemble.py" permettant de ré-assembler un zip scindé avec "zip_dir.py"
