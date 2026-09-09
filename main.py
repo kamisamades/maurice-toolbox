@@ -19,10 +19,10 @@ from config import *
 class MauriceToolbox:
     """Classe principale de l'application Maurice Toolbox."""
 
-    VERSION = "1.4.0"
+    VERSION = "1.4.1"
     AUTHOR = "Maurice"
     WEBSITE = "lebrun.dev"
-    RELEASE_DATE = "07/09/2026"
+    RELEASE_DATE = "09/09/2026"
 
     def __init__(self, root):
         self.root = root

@@ -15,19 +15,23 @@ from config import *
 class ImageResize:
     """Redimensionne et convertit des images d'un dossier en masse."""
 
-    VERSION = "1.0.0"
+    VERSION = "1.1.0"
     AUTHOR = "Maurice"
-    RELEASE_DATE = "07/09/2026"
+    RELEASE_DATE = "09/09/2026"
     FILTER_PATTERNS = {
         "JPG": "*.jp*g",
         "PNG": "*.png",
         "GIF": "*.gif",
         "WEBP": "*.webp",
+        "HEIC": "*.heic",
+        "HEIF": "*.heif",
     }
     OUTPUT_EXTENSIONS = {
         "JPG": ".jpg",
         "PNG": ".png",
         "WEBP": ".webp",
+        "HEIC": ".heic",
+        "HEIF": ".heif",
     }
 
     def __init__(self, root):
@@ -120,7 +124,7 @@ class ImageResize:
         format_frame = tk.Frame(options_frame, bg=WINDOW_BG_COLOR)
         format_frame.pack(fill=tk.X, pady=3)
         tk.Label(format_frame, text="Format de sortie :", bg=WINDOW_BG_COLOR).pack(side=tk.LEFT)
-        for value in ("Format d'origine", "JPG", "PNG", "WEBP"):
+        for value in ("Format d'origine",) + tuple(self.OUTPUT_EXTENSIONS.keys()):
             tk.Radiobutton(
                 format_frame,
                 text=value,
@@ -297,6 +301,14 @@ class ImageResize:
             else:
                 image = image.convert("RGB")
             image.save(output_path, format="JPEG", quality=95)
+        elif output_format == "HEIC" or (output_format == "Format d'origine" and output_path.suffix.lower() == ".heic"):
+            if image.mode in ("RGBA", "LA", "P"):
+                image = image.convert("RGB")
+            image.save(output_path, format="HEIC", quality=95)
+        elif output_format == "HEIF" or (output_format == "Format d'origine" and output_path.suffix.lower() == ".heif"):
+            if image.mode in ("RGBA", "LA", "P"):
+                image = image.convert("RGB")
+            image.save(output_path, format="HEIF", quality=95)
         else:
             format_name = output_format if output_format != "Format d'origine" else output_path.suffix[1:].upper()
             image.save(output_path, format=format_name)

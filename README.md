@@ -136,6 +136,9 @@ Pour toute question ou suggestion, vous pouvez contacter l'auteur via son site w
 
 ## 🗒️ Changelog
 
+Version 1.4.1 (09/09/2026) :
+- Modification du module "image_resize.py" pour prendre en entrée et en sortie les format HEIC et HEIF
+
 Version 1.4.0 (07/09/2026) :
 - Ajout du module "image_resize.py" permettant de redimensionner en masse des images d'un même dossier
 
